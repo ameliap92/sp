@@ -1,0 +1,117 @@
+
+<div class="modal fade" id="usersmodal" tabindex="-1" role="dialog" aria-labelledby="usersmodalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg lorealJS-users-modal" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="lorealJS-sticky-top">
+                    <div data-bind="foreach:$root.messages">
+                        <div data-bind="css:{   'alert lorealJS-alert':true,
+                                                'alert-warning':    messageType()=='2',
+                                                'alert-danger':     messageType()=='3',
+                                                'alert-success':    messageType()=='5',
+                                                'lorealJS-alert-primary':    messageType()=='1'}">
+                            <span data-bind="text:message"></span>
+                        </div>
+                    </div>
+                </div>
+                <h5 style="margin-left: 5px;font-size: 2rem;font-weight: 700;color: #808080;" id="usersmodalLabel">Chargement de données</h5>
+            </div>
+            <div class="modal-body">
+                <div class="lorealJS-users-steps">
+                    <div class="lorealJS-users-step">
+                        <div class="lorealJS-users-step-container">
+                            <div class="lorealJS-users-step-number lorealJS-users-step-one">
+                                1
+                            </div>
+                            <div class="lorealJS-users-step-title">
+                                <input id="lorealJS-users-file" class="lorealJS-users-input-file" type="file" data-bind="event: { change:uploadUsersFile.bind(this,$element) }">
+                                <select data-bind=" options: $root.availableGroups,
+                                                    optionsText: 'title',
+                                                    value: $root.destinationGroup,
+                                                    event:{ change: $root.resetForm},
+                                                    optionsCaption: 'Sélectionnez le groupe de destination...'"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lorealJS-users-step" data-bind="visible:destinationGroup()!=undefined">
+                        <div class="lorealJS-users-step-container">
+                            <div class="lorealJS-users-step-number lorealJS-users-step-two">
+                                2
+                            </div>
+                            <div class="lorealJS-users-step-title">
+                                <button type="button" class="btn btn-primary">
+                                    <label style="cursor: pointer;margin: 0px;padding: 0px;" style="cursor: pointer;" for="lorealJS-users-file">Charger un fichier</label>
+                                </button>
+                                <div class="lorealJS-users-step-instructions">Le fichier doit être au format Excel (.xlsx). </div>
+                                <div class="lorealJS-users-step-instructions">Seule la première colonne doit ontenir les email des personnes à ajouter.</div>                                    
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="border-top: 1px solid #bfbfbf;margin-top: 10px;" data-bind="visible:usersFileInfo()!=undefined">
+                    <div class="lorealJS-users-menu-container">
+                        <ul class="lorealJS-users-menu">
+                            <li data-bind="click:selectPage.bind(this,'valid'),css:{'lorealJS-users-menu-item-valid':true,'lorealJS-users-menu-item-valid-selected':selectedPage()=='valid'}">Utilisateurs valides</li>
+                            <li data-bind="click:selectPage.bind(this,'invalid'),css:{'lorealJS-users-menu-item-invalid':true,'lorealJS-users-menu-item-invalid-selected':selectedPage()=='invalid'}">Utilisateurs non valides</li>
+                        </ul>
+                    </div>
+                    <div style="border: 1px solid #d9d9d9;overflow-y: scroll;max-height: 500px;" data-bind="visible:selectedPage()=='valid'">
+                        <table class="table table-striped lorealJS-users-table">
+                            <thead class="thead-primary">
+                                <tr>
+                                    <th scope="col">Nom</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Présent dans le groupe</th>
+                                    <th scope="col">Ajouter à l'import</th>
+                                </tr>
+                            </thead>
+                            <tbody data-bind="foreach:validUsers">
+                                <tr>
+                                    <td scope="col"><span data-bind="text:name"></span></td>
+                                    <td scope="col"><span data-bind="text:email"></span></td>
+                                    <td scope="col"><div data-bind="css:{'lorealJS-users-ingroup':true,'lorealJS-users-notingroup':isInSPGroup()==true}"><i class="fas fa-check"></i></div></td>
+                                    <td scope="col">
+                                        <label class="lorealJS-users-switch">
+                                            <input type="checkbox" data-bind="checked: includeInImport">
+                                            <span class="lorealJS-users-slider lorealJS-users-round"></span>
+                                        </label>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div style="border: 1px solid #d9d9d9;" data-bind="visible:selectedPage()=='invalid'">
+                        <table class="table table-striped lorealJS-users-table">
+                            <thead class="thead-primary">
+                                <tr>
+                                    <th scope="col">Nom</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Erreur détectée</th>
+                                </tr>
+                            </thead>
+                            <tbody data-bind="foreach:invalidUsers">
+                                <tr>
+                                    <td scope="col"><span data-bind="text:name"></span></td>
+                                    <td scope="col"><span data-bind="text:email"></span></td>
+                                    <td scope="col">
+                                        <div data-bind="visible:isUnknown">
+                                            <span>Utilisateur introuvable</span>
+                                        </div>
+                                        <div data-bind="visible:isValidEmail()==false">
+                                            <span>Email non valide</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-bind="visible:usersFileInfo()!=undefined&&selectedPage()=='valid',click:importUsers">Importer</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" >Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>

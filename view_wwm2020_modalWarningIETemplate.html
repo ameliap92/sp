@@ -1,0 +1,35 @@
+<style>
+    .modal-dialog{
+        font-size: 15px!important;
+    }
+    .btn{
+        font-size: 14px!important;
+        border-radius: 4px!important;
+    }
+    .modal-backdrop {
+        background-color: red;
+        opacity:0.9 !important;
+    }
+</style>
+<div class="modal fade" id="warningIE" tabindex="-1" role="dialog" aria-labelledby="warningIELabel" aria-hidden="true">    
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" style="font-size: 2rem" id="warningIELabel">Internet Explorer support</h5>                
+            </div>
+            <div class="modal-body">
+                <div>
+                    <p style="margin: 5px 20px">You are currently using Internet Explorer. It is recommended to use Chrome for a better experience</p>
+                    <p style="margin: 5px 20px">We encourage you to copy/paste the url into a new tab of Chrome</p>
+                </div>
+                <div style="text-align: center">
+                    <button type="button" class="btn btn-primary btn-sm" data-bind="click:$root.copyURL">Copy URL</button>
+                </div>
+                <input type="text" data-bind="value:$root.currentUrl" id="mycpd_wwm2020_url" style="position: absolute;left:-9999px"/>
+            </div>
+            <!-- <div class="modal-footer">
+                <button type="button" class="btn btn-warning" data-dismiss="modal" aria-label="Close">Close</button>
+            </div> -->
+        </div>
+    </div>
+</div>

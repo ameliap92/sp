@@ -1,0 +1,455 @@
+<div class="row">
+    <div class="col">
+        <div class="MyCPD-WWM-sticky-top">
+            <div data-bind="foreach:$root.messages">
+                <div data-bind="css:{   'alert dayone-alert':true,
+                                        'alert-warning':    messageType()=='2',
+                                        'alert-danger':     messageType()=='3',
+                                        'alert-success':    messageType()=='5',
+                                        'lorealJS-alert-primary':    messageType()=='1'}">
+                    <span data-bind="text:message"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="MyCPD-WWM-summary-desktop">  
+    <div class="MyCPD-WWM-summary-title">
+        <!-- 2023 WORLDWIDE MEETINGS -->
+        <div class="MyCPD-WWM-summary-actions" data-bind="visible:isAdmin()==true">
+            <div data-bind="visible:isEditMode()==false,click:editPages">
+                <i class="ms-Icon ms-Icon--Edit"></i>
+            </div>
+            <div data-bind="visible:isEditMode()==true,click:savePages">
+                <i class="ms-Icon ms-Icon--Save"></i>
+            </div>
+            <div data-bind="click:displayUsersModal">
+                <i class="fas fa-users-cog"></i>
+            </div>
+        </div>
+    </div>
+    <div class="MyCPD-WWM-summary-main-content">
+        <div data-bind="visible:$root.youArticles().length==0">
+            <div data-bind="foreach:articles">
+                <div data-bind="visible:isPassed==false">
+                    <div data-bind="with:Morning">
+                        <div data-bind="visible:articles.length>0" class="MyCPD-WWM-summary-day">                        
+                            <div class="MyCPD-WWM-summary-day-title">
+                                <span data-bind="text:$parent.date"></span> - <span data-bind="text:title"></span> 
+                                <span data-bind="text:subtitle" style="font-style: italic;text-transform: none;"></span>
+                                <!-- <span data-bind="text:$parent.date"></span> - <span data-bind="text:title"></span> <span style="font-style: italic;text-transform: none;">(Click on the sessions below at the corresponding time)</span> -->
+                            </div>
+                            <div data-bind="foreach:articles" class="MyCPD-WWM-summary-day-items">                           
+                                <div class="MyCPD-WWM-summary-day-item">
+                                    <div class="MyCPD-WWM-summary-day-item-edit" data-bind="visible:isEditMode()==true">
+                                        <div class="MyCPD-WWM-summary-day-item-img">
+                                            <img data-bind="attr:{src:imageUrl}"/>
+                                        </div>
+                                        <div class="MyCPD-WWM-summary-day-item-content-edit">  
+                                            <div class="MyCPD-WWM-summary-day-item-content-field-edit">
+                                                <textarea type="text" data-bind="value:title,text:title"></textarea>
+                                            </div>
+                                            <div class="MyCPD-WWM-summary-day-item-content-field-edit">
+                                                <textarea type="text" data-bind="value:descLine1,text:descLine1"></textarea>
+                                            </div>
+                                            <div class="MyCPD-WWM-summary-day-item-content-field-edit">
+                                                <textarea type="text" data-bind="value:descLine2,text:descLine2"></textarea>
+                                            </div>
+                                            <div class="MyCPD-WWM-summary-day-item-content-field-edit">
+                                                <span><input type="checkbox" data-bind="checked:isReplay"/></span><span> Replay</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="MyCPD-WWM-summary-day-item-videopopup" data-bind="visible:isEditMode()==false&&displayInPopup()==true, click:$root.displayVideo">
+                                        <div class="MyCPD-WWM-summary-day-item-extracted" data-bind="visible:$root.isEditMode()==true&&isCheckedOut()==true">
+                                            <span>Extrait par </span><span style="font-weight: 700" data-bind="text:checkOutName"></span>
+                                        </div>
+                                        <div class="MyCPD-WWM-summary-day-item-img">
+                                            <img data-bind="attr:{src:imageUrl}"/>
+                                        </div>
+                                        <div class="MyCPD-WWM-summary-day-item-content">
+                                            <div data-bind="text:title"></div>
+                                            <div class="MyCPD-WWM-summary-day-item-content-desc">
+                                                <div class="MyCPD-WWM-summary-day-item-content-desc-line1" data-bind="text:descLine1"></div>
+                                                <div class="MyCPD-WWM-summary-day-item-content-desc-line2" data-bind="text:descLine2"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a data-bind="attr:{href:url,target:target},visible:isEditMode()==false&&displayInPopup()==false">
+                                        <div class="MyCPD-WWM-summary-day-item-extracted" data-bind="visible:$root.isEditMode()==true&&isCheckedOut()==true">
+                                            <span>Extrait par </span><span style="font-weight: 700" data-bind="text:checkOutName"></span>
+                                        </div>
+                                        <div class="MyCPD-WWM-summary-day-item-img">
+                                            <img data-bind="attr:{src:imageUrl}"/>
+                                        </div>
+                                        <div class="MyCPD-WWM-summary-day-item-content">
+                                            <div data-bind="text:title"></div>
+                                            <div class="MyCPD-WWM-summary-day-item-content-desc">
+                                                <div class="MyCPD-WWM-summary-day-item-content-desc-line1" data-bind="text:descLine1"></div>
+                                                <div class="MyCPD-WWM-summary-day-item-content-desc-line2" data-bind="text:descLine2"></div>
+                                            </div>
+                                        </div>
+                                    </a>    
+                                </div>
+                            </div>                                            
+                        </div>
+                    </div>
+                    <div data-bind="if: $parent.Afternoon!=undefined">
+                        <div data-bind="with:Afternoon">
+                            <div data-bind="visible:articles.length>0" class="MyCPD-WWM-summary-day">                        
+                                <div class="MyCPD-WWM-summary-day-title">
+                                    <span data-bind="text:$parent.date"></span> - <span data-bind="text:title"></span> 
+                                    <span data-bind="text:subtitle" style="font-style: italic;text-transform: none;"></span>
+                                    <!-- <span data-bind="text:$parent.date"></span> - <span data-bind="text:title"></span> <span style="font-style: italic;text-transform: none;">(Click on the sessions below at the corresponding time)</span> -->
+                                </div>
+                                <div data-bind="foreach:articles" class="MyCPD-WWM-summary-day-items">                           
+                                    <div class="MyCPD-WWM-summary-day-item">
+                                        <div class="MyCPD-WWM-summary-day-item-edit" data-bind="visible:isEditMode()==true">
+                                            <div class="MyCPD-WWM-summary-day-item-img">
+                                                <img data-bind="attr:{src:imageUrl}"/>
+                                            </div>
+                                            <div class="MyCPD-WWM-summary-day-item-content-edit">  
+                                                <div class="MyCPD-WWM-summary-day-item-content-field-edit">
+                                                    <textarea type="text" data-bind="value:title,text:title"></textarea>
+                                                </div>
+                                                <div class="MyCPD-WWM-summary-day-item-content-field-edit">
+                                                    <textarea type="text" data-bind="value:descLine1,text:descLine1"></textarea>
+                                                </div>
+                                                <div class="MyCPD-WWM-summary-day-item-content-field-edit">
+                                                    <textarea type="text" data-bind="value:descLine2,text:descLine2"></textarea>
+                                                </div>
+                                                <div class="MyCPD-WWM-summary-day-item-content-field-edit">
+                                                    <span><input type="checkbox" data-bind="checked:isReplay"/></span><span> Replay</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="MyCPD-WWM-summary-day-item-videopopup" data-bind="visible:isEditMode()==false&&displayInPopup()==true, click:$root.displayVideo">
+                                            <div class="MyCPD-WWM-summary-day-item-extracted" data-bind="visible:$root.isEditMode()==true&&isCheckedOut()==true">
+                                                <span>Extrait par </span><span style="font-weight: 700" data-bind="text:checkOutName"></span>
+                                            </div>
+                                            <div class="MyCPD-WWM-summary-day-item-img">
+                                                <img data-bind="attr:{src:imageUrl}"/>
+                                            </div>
+                                            <div class="MyCPD-WWM-summary-day-item-content">
+                                                <div data-bind="text:title"></div>
+                                                <div class="MyCPD-WWM-summary-day-item-content-desc">
+                                                    <div class="MyCPD-WWM-summary-day-item-content-desc-line1" data-bind="text:descLine1"></div>
+                                                    <div class="MyCPD-WWM-summary-day-item-content-desc-line2" data-bind="text:descLine2"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a data-bind="attr:{href:url,target:target},visible:isEditMode()==false&&displayInPopup()==false">
+                                            <div class="MyCPD-WWM-summary-day-item-extracted" data-bind="visible:$root.isEditMode()==true&&isCheckedOut()==true">
+                                                <span>Extrait par </span><span style="font-weight: 700" data-bind="text:checkOutName"></span>
+                                            </div>
+                                            <div class="MyCPD-WWM-summary-day-item-img">
+                                                <img data-bind="attr:{src:imageUrl}"/>
+                                            </div>
+                                            <div class="MyCPD-WWM-summary-day-item-content">
+                                                <div data-bind="text:title"></div>
+                                                <div class="MyCPD-WWM-summary-day-item-content-desc">
+                                                    <div class="MyCPD-WWM-summary-day-item-content-desc-line1" data-bind="text:descLine1"></div>
+                                                    <div class="MyCPD-WWM-summary-day-item-content-desc-line2" data-bind="text:descLine2"></div>
+                                                </div>
+                                            </div>
+                                        </a>    
+                                    </div>
+                                </div>                                            
+                            </div>
+                        </div>  
+                    </div>                     
+                </div>
+                <div data-bind="visible:isPassed==true">
+                    <div data-bind="with:Morning">
+                        <div data-bind="visible:articles.length>0" class="MyCPD-WWM-summary-day">                        
+                            <div class="MyCPD-WWM-summary-day-title">
+                                <span data-bind="text:$parent.date"></span>
+                                <span data-bind="text:subtitle" style="font-style: italic;text-transform: none;"></span>
+                            </div>
+                            <div data-bind="foreach:articles" class="MyCPD-WWM-summary-day-items">                           
+                                <div class="MyCPD-WWM-summary-day-item">
+                                    <div class="MyCPD-WWM-summary-day-item-edit" data-bind="visible:isEditMode()==true">
+                                        <div class="MyCPD-WWM-summary-day-item-img">
+                                            <img data-bind="attr:{src:imageUrl}"/>
+                                        </div>
+                                        <div class="MyCPD-WWM-summary-day-item-content-edit">  
+                                            <div class="MyCPD-WWM-summary-day-item-content-field-edit">
+                                                <textarea type="text" data-bind="value:title,text:title"></textarea>
+                                            </div>
+                                            <div class="MyCPD-WWM-summary-day-item-content-field-edit">
+                                                <textarea type="text" data-bind="value:descLine1,text:descLine1"></textarea>
+                                            </div>
+                                            <div class="MyCPD-WWM-summary-day-item-content-field-edit">
+                                                <textarea type="text" data-bind="value:descLine2,text:descLine2"></textarea>
+                                            </div>
+                                            <div class="MyCPD-WWM-summary-day-item-content-field-edit">
+                                                <span><input type="checkbox" data-bind="checked:isReplay"/></span><span> Replay</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="MyCPD-WWM-summary-day-item-videopopup" data-bind="visible:isEditMode()==false&&displayInPopup()==true, click:$root.displayVideo">
+                                        <div class="MyCPD-WWM-summary-day-item-extracted" data-bind="visible:$root.isEditMode()==true&&isCheckedOut()==true">
+                                            <span>Extrait par </span><span style="font-weight: 700" data-bind="text:checkOutName"></span>
+                                        </div>
+                                        <div class="MyCPD-WWM-summary-day-item-img">
+                                            <img data-bind="attr:{src:imageUrl}"/>
+                                        </div>
+                                        <div class="MyCPD-WWM-summary-day-item-content">
+                                            <div data-bind="text:title"></div>
+                                            <div class="MyCPD-WWM-summary-day-item-content-desc">
+                                                <div class="MyCPD-WWM-summary-day-item-content-desc-line1" data-bind="text:descLine1"></div>
+                                                <div class="MyCPD-WWM-summary-day-item-content-desc-line2" data-bind="text:descLine2"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a data-bind="attr:{href:url,target:target},visible:isEditMode()==false&&displayInPopup()==false">
+                                        <div class="MyCPD-WWM-summary-day-item-extracted" data-bind="visible:$root.isEditMode()==true&&isCheckedOut()==true">
+                                            <span>Extrait par </span><span style="font-weight: 700" data-bind="text:checkOutName"></span>
+                                        </div>
+                                        <div class="MyCPD-WWM-summary-day-item-img">
+                                            <img data-bind="attr:{src:imageUrl}"/>
+                                        </div>
+                                        <div class="MyCPD-WWM-summary-day-item-content">
+                                            <div data-bind="text:title"></div>
+                                            <div class="MyCPD-WWM-summary-day-item-content-desc">
+                                                <div class="MyCPD-WWM-summary-day-item-content-desc-line1" data-bind="text:descLine1"></div>
+                                                <div class="MyCPD-WWM-summary-day-item-content-desc-line2" data-bind="text:descLine2"></div>
+                                            </div>
+                                        </div>
+                                    </a>    
+                                </div>
+                            </div>                                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div data-bind="visible:$root.forAllArticles().length>0" class="MyCPD-WWM-summary-day">
+            <div class="MyCPD-WWM-summary-day-title" data-bind="click:$root.displayForAllSection">
+                <span>CPD WWM FOR ALL</span>
+            </div>
+            <div data-bind="toggleVisible:$root.isForAllVisible">
+                <div data-bind="foreach:$root.forAllArticles" class="MyCPD-WWM-summary-day-items">
+                    <div class="MyCPD-WWM-summary-day-item">
+                        <div class="MyCPD-WWM-summary-day-item-edit" data-bind="visible:isEditMode()==true">
+                            <div class="MyCPD-WWM-summary-day-item-img">
+                                <img data-bind="attr:{src:imageUrl}"/>
+                            </div>
+                            <div class="MyCPD-WWM-summary-day-item-content-edit">  
+                                <div class="MyCPD-WWM-summary-day-item-content-field-edit">
+                                    <textarea type="text" data-bind="value:title,text:title"></textarea>
+                                </div>
+                                <div class="MyCPD-WWM-summary-day-item-content-field-edit">
+                                    <textarea type="text" data-bind="value:descLine1,text:descLine1"></textarea>
+                                </div>
+                                <div class="MyCPD-WWM-summary-day-item-content-field-edit">
+                                    <textarea type="text" data-bind="value:descLine2,text:descLine2"></textarea>
+                                </div>
+                                <div class="MyCPD-WWM-summary-day-item-content-field-edit">
+                                    <span><input type="checkbox" data-bind="checked:isReplay"/></span><span> Replay</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="MyCPD-WWM-summary-day-item-videopopup" data-bind="visible:isEditMode()==false&&displayInPopup()==true, click:$root.displayVideo">
+                            <div class="MyCPD-WWM-summary-day-item-extracted" data-bind="visible:$root.isEditMode()==true&&isCheckedOut()==true">
+                                <span>Extrait par </span><span style="font-weight: 700" data-bind="text:checkOutName"></span>
+                            </div>
+                            <div class="MyCPD-WWM-summary-day-item-img">
+                                <img data-bind="attr:{src:imageUrl}"/>
+                            </div>
+                            <div class="MyCPD-WWM-summary-day-item-content">
+                                <div data-bind="text:title"></div>
+                                <div class="MyCPD-WWM-summary-day-item-content-desc">
+                                    <div class="MyCPD-WWM-summary-day-item-content-desc-line1" data-bind="text:descLine1"></div>
+                                    <div class="MyCPD-WWM-summary-day-item-content-desc-line2" data-bind="text:descLine2"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <a data-bind="attr:{href:url,target:target},visible:isEditMode()==false&&displayInPopup()==false">
+                            <div class="MyCPD-WWM-summary-day-item-extracted" data-bind="visible:$root.isEditMode()==true&&isCheckedOut()==true">
+                                <span>Extrait par </span><span style="font-weight: 700" data-bind="text:checkOutName"></span>
+                            </div>
+                            <div class="MyCPD-WWM-summary-day-item-img">
+                                <img data-bind="attr:{src:imageUrl}"/>
+                            </div>
+                            <div class="MyCPD-WWM-summary-day-item-content">
+                                <div data-bind="text:title"></div>
+                                <div class="MyCPD-WWM-summary-day-item-content-desc">
+                                    <div class="MyCPD-WWM-summary-day-item-content-desc-line1" data-bind="text:descLine1"></div>
+                                    <div class="MyCPD-WWM-summary-day-item-content-desc-line2" data-bind="text:descLine2"></div>
+                                </div>
+                            </div>
+                        </a>    
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div data-bind="visible:$root.youArticles().length>0" class="MyCPD-WWM-summary-day">
+            <div class="MyCPD-WWM-summary-day-title" data-bind="click:$root.displayForYouSection">
+                <span>CPD WWM FOR YOU</span>
+            </div>
+            <div data-bind="toggleVisible:$root.isForYouVisible">
+                <div data-bind="foreach:$root.youArticles" class="MyCPD-WWM-summary-day-items">
+                    <div class="MyCPD-WWM-summary-day-item">
+                        <div class="MyCPD-WWM-summary-day-item-edit" data-bind="visible:isEditMode()==true">
+                            <div class="MyCPD-WWM-summary-day-item-img">
+                                <img data-bind="attr:{src:imageUrl}"/>
+                            </div>
+                            <div class="MyCPD-WWM-summary-day-item-content-edit">  
+                                <div class="MyCPD-WWM-summary-day-item-content-field-edit">
+                                    <textarea type="text" data-bind="value:title,text:title"></textarea>
+                                </div>
+                                <div class="MyCPD-WWM-summary-day-item-content-field-edit">
+                                    <textarea type="text" data-bind="value:descLine1,text:descLine1"></textarea>
+                                </div>
+                                <div class="MyCPD-WWM-summary-day-item-content-field-edit">
+                                    <textarea type="text" data-bind="value:descLine2,text:descLine2"></textarea>
+                                </div>
+                                <div class="MyCPD-WWM-summary-day-item-content-field-edit">
+                                    <span><input type="checkbox" data-bind="checked:isReplay"/></span><span> Replay</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="MyCPD-WWM-summary-day-item-videopopup" data-bind="visible:isEditMode()==false&&displayInPopup()==true, click:$root.displayVideo">
+                            <div class="MyCPD-WWM-summary-day-item-extracted" data-bind="visible:$root.isEditMode()==true&&isCheckedOut()==true">
+                                <span>Extrait par </span><span style="font-weight: 700" data-bind="text:checkOutName"></span>
+                            </div>
+                            <div class="MyCPD-WWM-summary-day-item-img">
+                                <img data-bind="attr:{src:imageUrl}"/>
+                            </div>
+                            <div class="MyCPD-WWM-summary-day-item-content">
+                                <div data-bind="text:title"></div>
+                                <div class="MyCPD-WWM-summary-day-item-content-desc">
+                                    <div class="MyCPD-WWM-summary-day-item-content-desc-line1" data-bind="text:descLine1"></div>
+                                    <div class="MyCPD-WWM-summary-day-item-content-desc-line2" data-bind="text:descLine2"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <a data-bind="attr:{href:url,target:target},visible:isEditMode()==false&&displayInPopup()==false">
+                            <div class="MyCPD-WWM-summary-day-item-extracted" data-bind="visible:$root.isEditMode()==true&&isCheckedOut()==true">
+                                <span>Extrait par </span><span style="font-weight: 700" data-bind="text:checkOutName"></span>
+                            </div>
+                            <div class="MyCPD-WWM-summary-day-item-img">
+                                <img data-bind="attr:{src:imageUrl}"/>
+                            </div>
+                            <div class="MyCPD-WWM-summary-day-item-content">
+                                <div data-bind="text:title"></div>
+                                <div class="MyCPD-WWM-summary-day-item-content-desc">
+                                    <div class="MyCPD-WWM-summary-day-item-content-desc-line1" data-bind="text:descLine1"></div>
+                                    <div class="MyCPD-WWM-summary-day-item-content-desc-line2" data-bind="text:descLine2"></div>
+                                </div>
+                            </div>
+                        </a>    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="MyCPD-WWM-summary-mobile">
+    <div class="MyCPD-WWM-summary-title-sm">
+        2023 WORLDWIDE MEETINGS
+    </div>
+    <div class="MyCPD-WWM-summary-main-content-sm">
+        <div data-bind="visible:$root.youArticles().length==0">
+            <div data-bind="foreach:articles">
+                <div>
+                    <div data-bind="with:Morning">
+                        <div data-bind="visible:articles.length>0" class="MyCPD-WWM-summary-day-sm">
+                            <div class="MyCPD-WWM-summary-day-title-sm">
+                                <span data-bind="text:$parent.date"></span> - <span data-bind="text:title"></span> <span data-bind="text:subtitle" style="font-style: italic;text-transform: none;"></span>
+                            </div>
+                            <div data-bind="foreach:articles" class="MyCPD-WWM-summary-day-items-sm"> 
+                                <div class="MyCPD-WWM-summary-day-item-sm">
+                                    <a data-bind="attr:{href:url,target:target}">
+                                        <div class="MyCPD-WWM-summary-day-item-img">
+                                            <img data-bind="attr:{src:imageUrl}"/>
+                                        </div>
+                                        <div class="MyCPD-WWM-summary-day-item-content-sm">
+                                            <div data-bind="text:title"></div>
+                                            <div class="MyCPD-WWM-summary-day-item-content-desc-sm">
+                                                <div class="MyCPD-WWM-summary-day-item-content-desc-line1" data-bind="text:descLine1"></div>
+                                                <div class="MyCPD-WWM-summary-day-item-content-desc-line2" data-bind="text:descLine2"></div>
+                                            </div>
+                                        </div>
+                                    </a>                                
+                                </div>
+                            </div>
+                        </div>
+                    </div>     
+                    <div data-bind="if: $parent.Afternoon!=undefined">
+                        <div data-bind="with:Afternoon">
+                            <div data-bind="visible:articles.length>0" class="MyCPD-WWM-summary-day-sm">
+                                <div class="MyCPD-WWM-summary-day-title-sm">
+                                    <span data-bind="text:$parent.date"></span> - <span data-bind="text:title"></span> <span data-bind="text:subtitle" style="font-style: italic;text-transform: none;"></span>
+                                </div>
+                                <div data-bind="foreach:articles" class="MyCPD-WWM-summary-day-items-sm"> 
+                                    <div class="MyCPD-WWM-summary-day-item-sm">
+                                        <a data-bind="attr:{href:url,target:target}">
+                                            <div class="MyCPD-WWM-summary-day-item-img">
+                                                <img data-bind="attr:{src:imageUrl}"/>
+                                            </div>
+                                            <div class="MyCPD-WWM-summary-day-item-content-sm">
+                                                <div data-bind="text:title"></div>
+                                                <div class="MyCPD-WWM-summary-day-item-content-desc-sm">
+                                                    <div class="MyCPD-WWM-summary-day-item-content-desc-line1" data-bind="text:descLine1"></div>
+                                                    <div class="MyCPD-WWM-summary-day-item-content-desc-line2" data-bind="text:descLine2"></div>
+                                                </div>
+                                            </div>
+                                        </a>                                
+                                    </div>
+                                </div>
+                            </div>
+                        </div>  
+                    </div>                        
+                </div>
+            </div>
+        </div>
+        <div data-bind="visible:$root.forAllArticles().length>0" class="MyCPD-WWM-summary-day-sm">            
+            <div class="MyCPD-WWM-summary-day-title-sm" data-bind="click:$root.displayForAllSection">
+                <span >CPD WWM FOR ALL </span>
+            </div>
+            <div data-bind="toggleVisible:$root.isForAllVisible">
+                <div data-bind="foreach:$root.forAllArticles" class="MyCPD-WWM-summary-day-items-sm"> 
+                    <div class="MyCPD-WWM-summary-day-item-sm">
+                        <a data-bind="attr:{href:url,target:target}">
+                            <div class="MyCPD-WWM-summary-day-item-img">
+                                <img data-bind="attr:{src:imageUrl}"/>
+                            </div>
+                            <div class="MyCPD-WWM-summary-day-item-content-sm">
+                                <div data-bind="text:title"></div>
+                                <div class="MyCPD-WWM-summary-day-item-content-desc-sm">
+                                    <div class="MyCPD-WWM-summary-day-item-content-desc-line1" data-bind="text:descLine1"></div>
+                                    <div class="MyCPD-WWM-summary-day-item-content-desc-line2" data-bind="text:descLine2"></div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div> 
+            </div>                     
+        </div>
+        <div data-bind="visible:$root.youArticles().length>0" class="MyCPD-WWM-summary-day-sm">
+            <div class="MyCPD-WWM-summary-day-title-sm" data-bind="click:$root.displayForYouSection">
+                <span >CPD WWM FOR YOU </span>
+            </div>
+            <div data-bind="toggleVisible:$root.isForYouVisible">
+                <div data-bind="foreach:$root.youArticles" class="MyCPD-WWM-summary-day-items-sm"> 
+                    <div class="MyCPD-WWM-summary-day-item-sm">
+                        <a data-bind="attr:{href:url,target:target}">
+                            <div class="MyCPD-WWM-summary-day-item-img">
+                                <img data-bind="attr:{src:imageUrl}"/>
+                            </div>
+                            <div class="MyCPD-WWM-summary-day-item-content-sm">
+                                <div data-bind="text:title"></div>
+                                <div class="MyCPD-WWM-summary-day-item-content-desc-sm">
+                                    <div class="MyCPD-WWM-summary-day-item-content-desc-line1" data-bind="text:descLine1"></div>
+                                    <div class="MyCPD-WWM-summary-day-item-content-desc-line2" data-bind="text:descLine2"></div>
+                                </div>
+                            </div>
+                        </a>                                
+                    </div>
+                </div>
+            </div>            
+        </div>
+    </div>
+</div>

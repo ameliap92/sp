@@ -1,0 +1,170 @@
+div.lorealJS-sticky-top{    
+    position: fixed;
+    z-index: 10000;
+    width: 100%;
+    padding: 10px;
+    left: 0;
+    top: 0px;
+}
+div.lorealJS-alert{
+    padding: 5px!important;
+    margin-bottom: 7px!important;    
+}
+div.lorealJS-alert-primary{
+    color: #004085;
+    background-color: #cce5ff;
+    border-color: #b8daff;
+}
+.lorealJS-users-input-file{
+    display: none!important;
+}
+.lorealJS-users-switch {
+    position: relative;
+    display: inline-block;
+    width: 35px;
+    height: 22px;
+  }
+  
+  .lorealJS-users-switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .lorealJS-users-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .2s;
+    transition: .2s;
+  }
+  
+  .lorealJS-users-slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 2px;
+    bottom: 3px;
+    background-color: white;
+    -webkit-transition: .2s;
+    transition: .2s;
+  }
+  
+  input:checked + .lorealJS-users-slider {
+    background-color: #2196F3;
+  } 
+  
+  input:focus + .lorealJS-users-slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+  
+  input:checked + .lorealJS-users-slider:before {
+    -webkit-transform: translateX(16px);
+    -ms-transform: translateX(16px);
+    transform: translateX(16px);
+  }
+  
+  /* Rounded sliders */
+  .lorealJS-users-slider.lorealJS-users-round {
+    border-radius: 34px;
+  }
+  
+  .lorealJS-users-slider.lorealJS-users-round:before {
+    border-radius: 50%;
+  }
+  .lorealJS-users-ingroup{
+      font-size: 1rem;
+      color: #bfbfbf;
+  }
+.lorealJS-users-notingroup{
+    color: #008000;
+}
+.lorealJS-users-modal{
+    max-width: 1200px!important;
+}
+table.lorealJS-users-table{
+    font-size: 1.2rem;
+}
+table.lorealJS-users-table span{
+    font-size: 1.1rem;
+}
+div.lorealJS-users-menu-container{
+    margin-top: 10px;
+}
+ul.lorealJS-users-menu{
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    display: flex;
+}
+ul.lorealJS-users-menu li{
+    padding: 5px 10px;    
+    margin-right: 10px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    cursor: pointer;
+}
+li.lorealJS-users-menu-item-valid{
+    background: #9fdfbf;
+    color: #fff;    
+}
+li.lorealJS-users-menu-item-valid:hover{
+    background: #009933;
+}
+li.lorealJS-users-menu-item-valid-selected{
+    background: #009933;
+}
+li.lorealJS-users-menu-item-invalid{
+    background: #ffcccc;
+    color: #fff;
+}
+li.lorealJS-users-menu-item-invalid:hover{
+    background: #ff6666;
+}
+li.lorealJS-users-menu-item-invalid-selected{
+    background: #ff6666;
+}
+div.lorealJS-users-steps{
+    display: flex;
+}
+div.lorealJS-users-step{
+    margin-right: 10px;
+}
+div.lorealJS-users-step-container{
+    display:flex;
+    padding: 5px 10px;
+}
+div.lorealJS-users-step-number lorealJS-users-step-one{
+    padding: 5px;
+}
+div.lorealJS-users-step-title{
+    padding-top: 10px;
+}
+div.lorealJS-users-step-number{
+    padding: 3px 0px 0px 15px;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 2.5rem!important;
+    margin-right: 10px;
+}
+div.lorealJS-users-step-one{
+    border: 3px solid #cc66ff;
+    color: #660099;
+}
+div.lorealJS-users-step-two{
+    border: 3px solid #0066cc;
+    color: #004d99;
+}
+div.lorealJS-users-step-instructions{
+    font-weight: 500;
+    font-size: 0.7rem;
+    padding: 1px;
+    margin: 0px;
+    font-size: 1.1rem;
+};

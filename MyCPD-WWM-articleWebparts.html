@@ -1,0 +1,68 @@
+<!--CSS-->
+<link type="text/css" href="../Style/css/mycpd-wwm-cgu.css?version=3.5" rel="stylesheet" />
+<link type="text/css" href="../Style/css/importUsers.css?version=3.5" rel="stylesheet" />
+<link type="text/css" href="../Style/css/mycpd-wwm-summary.css?version=3.5" rel="stylesheet" />
+<link type="text/css" href="../Style/css/jquery-ui.css" rel="stylesheet" />
+<link type="text/css" href="../Style/css/jquery-ui.structure.min.css" rel="stylesheet" />
+<link type="text/css" rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+<!-- utilities -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js"></script>
+<script type="text/javascript" src="../Style/js/Utilities/common.js?version=3.5"></script>
+<script type="text/javascript" src="../Style/js/Utilities/constants.js?version=3.5"></script>
+<script type="text/javascript" src="../Style/js/Utilities/jsxlsx/xlsx.full.min.js"></script>
+
+<!--services-->
+<script src="../Style/js/services/service-sp.js?version=3.5"></script>
+<script src="../Style/js/services/service-users.js?version=3.5"></script>
+<script src="../Style/js/services/service-settings.js?version=3.5"></script>
+<script src="../Style/js/services/service-pages.js?version=3.5"></script>
+<!--entities-->
+<script src="../Style/js/entities/messageentity.js?version=3.5"></script>
+<script src="../Style/js/entities/userentity.js?version=3.5"></script>
+<script src="../Style/js/entities/articleentity.js?version=3.5"></script>
+<!--sripts-->
+<script src="../Style/js/viewmodels/MyCPD-WWM-CGUManagementVM.js?version=3.5"></script>
+<script src="../Style/js/viewmodels/MyCPD-WWM-ArticleSummaryVM.js?version=3.5"></script>
+<script src="../Style/js/viewmodels/MyCPD-WWM-UsersManagementVM.js?version=3.5"></script>
+<script src="../Style/js/viewmodels/MyCPD-WWM-WarningIEVM.js?version=3.5"></script>
+<style>
+
+</style>
+<!-- Main -->
+<script>
+    var WWM_ArticlesSummaryVM = WWM_ArticlesSummaryVM || {};
+    var MyCPD_WWMSettings = MyCPD_WWMSettings || {};
+    SP.SOD.executeFunc('sp.js', 'SP.ClientContext', init);
+
+    function init() {
+        $(document).ready(function () {
+            PreventDefaultNavigation();
+            initView();
+        });
+    };
+
+    function initView() {
+        var url = _spPageContextInfo.webServerRelativeUrl;
+        var templatesUrl = String.format("{0}/style/html/view_wwm2020_SummaryTemplate.html", url);
+        MyCPD_WWM.common.initRefreshFormDigest();
+        MyCPD_WWMSettings = new MyCPD_WWM_Services.Settings();
+        $.ajax({
+            url: templatesUrl,
+            success: function (data) {
+                $("#MyCPD_WWM_DirArticles_template_holder").html(data);
+                WWM_ArticlesSummaryVM = new MyCPD_WWM.ArticlesSummaryVM();
+                WWM_ArticlesSummaryVM.init();
+                ko.applyBindings(WWM_ArticlesSummaryVM, document.getElementById(
+                    'MyCPD_WWM_DirArticles_template_holder'));
+            },
+            error: function (msg) {
+                console.error(msg);
+            }
+        });
+    };
+</script>
+<div id="MyCPD_WWM_DirArticles_Main_Control">
+    <div id="MyCPD_WWM_DirArticles_template_holder"></div>
+</div>

@@ -1,0 +1,90 @@
+div.MyCPD-WWM-sticky-top{    
+    position: fixed;
+    z-index: 10000;
+    width: 100%;
+    padding: 10px;
+    left: 0;
+    top: 60px;
+}
+div.mycpd-cgu-content{
+    margin: 10px;
+    text-align: justify;
+}
+div.mycpd-cgu-content a{
+    font-style: italic;
+    text-decoration: underline;
+}
+div.mycpd-cgu-content a:hover{
+    color: #333;
+    font-style: italic;
+    text-decoration: underline;
+}
+div.mycpd-cgu-content a:visited{
+    color: #333;
+    text-decoration: underline;
+    font-style: italic;
+}
+h5.mycpd-cgu-title{
+    font-size: 2rem;
+    text-align: center;
+}
+div.mycpd-cgu-checkbox-container{
+    position: relative;
+    margin: 10px;
+    padding: 0px 30px;
+    text-align: justify;
+}
+div.mycpd-cgu-button-container{
+
+}
+/* Create a custom checkbox */
+.mycpd-cgu-data-value-checkbox-checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 21px;
+    width: 21px;
+    background-color: #eee;    
+}
+
+/* On mouse-over, add a grey background color */
+.mycpd-cgu-data-value-checkbox-container:hover input ~ .mycpd-cgu-data-value-checkbox-checkmark {
+    background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.mycpd-cgu-data-value-checkbox-container input:checked ~ .mycpd-cgu-data-value-checkbox-checkmark {
+    background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.mycpd-cgu-data-value-checkbox-checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.mycpd-cgu-data-value-checkbox-container input:checked ~ .mycpd-cgu-data-value-checkbox-checkmark:after {
+    display: block;
+}
+  
+/* Style the checkmark/indicator */
+.mycpd-cgu-data-value-checkbox-container .mycpd-cgu-data-value-checkbox-checkmark:after {
+    left: 8px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+div.mycpd-cgu-data-value{
+    position: relative;
+    padding-left: 30px;
+}
+div.mycpd-cgu-data-value input{
+    display: none;
+}

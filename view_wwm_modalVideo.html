@@ -1,0 +1,24 @@
+<div class="modal fade" id="assetModal" tabindex="-1" role="dialog" aria-labelledby="assetModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered loreal-wwm-VideoDashboard-modal-dialog" role="document">
+        <div class="row">
+            <div class="col">
+                <div class="MyCPD-WWM-sticky-top">
+                    <div data-bind="foreach:$root.messages">
+                        <div data-bind="css:{   'alert':true,
+                                                'alert-warning':    messageType()=='2',
+                                                'alert-danger':     messageType()=='3',
+                                                'alert-success':    messageType()=='5',
+                                                'loreal-onemarket-dashboard-alert-primary':    messageType()=='1'}">
+                            <span data-bind="text:message"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-content loreal-wwm-VideoDashboard-modal-content">
+            <div class="modal-body" id="contentVideo"> 
+                <!-- <iframe id="framecontent" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" style="width: 100%;height:100vh" title="canalchat" height=""></iframe> -->
+            </div>
+        </div>
+    </div>
+</div>
